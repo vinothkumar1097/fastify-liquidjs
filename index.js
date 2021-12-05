@@ -34,10 +34,11 @@ fastify.register(POV, {
 fastify.register(require('./routes/items'));
 fastify.register(require('./routes/static'));
 
-// Handle 404 errors (Page not found)
+// Handle 404 errors (Page not found - https://www.fastify.io/docs/v3.8.x/Server/#setnotfoundhandler)
 fastify.setNotFoundHandler({
     preValidation: (req, reply, done) => {
       reply.send('page not found');
+      // reply.redirect('/home/tst');
       done()
     },
     // preHandler: (req, reply, done) => {
@@ -48,13 +49,15 @@ fastify.setNotFoundHandler({
       // Default not found handler with preValidation and preHandler hooks
   })
 
-  // Handle 500 error
+  // Handle 500 error - https://www.fastify.io/docs/latest/Reply/#redirectcode--dest
 fastify.setErrorHandler(function (error, request, reply) {
-    // Log error
-    this.log.error(error)
-    // Send error response
-    reply.status(409).send({ ok: false })
-  })
+  request.log.warn(error)
+  var statusCode = error.statusCode >= 400 ? error.statusCode : 500
+  reply
+    .code(statusCode)
+    .type('text/plain')
+    .send(statusCode >= 500 ? 'Internal server error' : error.message)
+})
 
 // Display available routes when initializing
 fastify.ready(() => {
