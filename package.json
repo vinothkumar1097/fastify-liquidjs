@@ -1,0 +1,23 @@
+{
+  "name": "fastify_liquid",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "watch": "nodemon index"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fastify": "^3.24.1",
+    "fastify-static": "^4.5.0",
+    "liquidjs": "^9.28.5",
+    "point-of-view": "^4.15.3"
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0",
+    "nodemon": "^2.0.15"
+  }
+}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fastify - Liquid</title>
+    <link rel="stylesheet" href="/assets/css/home.css">
+</head>
+<body>
+    <h5>Your msg is {{ msg }}</h5>
+    <br>
+    <img id="imgData" src="" alt="">
+    <br>
+    {% for item in arr %}
+    <span>{{item}}</span>
+    {% endfor %}
+    <button id="testing">
+        Click Here
+    </button>
+    <script src="/assets/js/home.js"></script>
+</body>
+</html>
