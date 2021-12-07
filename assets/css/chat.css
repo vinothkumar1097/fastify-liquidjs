@@ -1,9 +1,358 @@
-#container {
-    font-size: 2rem;
-    width: 50%;
-    height: 50vh;
-    overflow: auto;
+/*Color Initialization*/
+/************************************************/
+:root {
+    --blue-color: rgb(0, 102, 161);
+    --lightblue-color: rgb(156, 214, 248);
+    --purple-color: rgb(102,57,183);
+    --lightpurple-color: rgba(102,57,183,0.15);
+    --green-color: rgb(0,165,156);
+    --lightgreen-color: rgba(0,165,156,0.22);
+    --orange-color: rgb(250, 97, 25);
+    --lightorange-color: rgba(250, 97, 25,0.2);
+    --yellow-color: rgb(158, 149, 0);
+    --lightyellow-color: rgba(158, 149, 0,0.2);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.blue {
+    color: var(--blue-color);
+}
+
+.bblue {
+    background-color: var(--blue-color);
+}
+
+.blightblue {
+    background-color: var(--lightblue-color);
+}
+
+.bpurple{
+    background-color: var(--purple-color);
+}
+
+.blightpurple{
+    background-color: var(--lightpurple-color);
+}
+
+.bgreen{
+    background-color: var(--green-color);
+}
+
+.blightgreen{
+    background-color: var(--lightgreen-color);
+}
+
+.borange{
+    background-color: var(--orange-color);
+}
+
+.blightorange{
+    background-color: var(--lightorange-color);
+}
+
+.byellow{
+    background-color: var(--yellow-color);
+}
+
+.blightyellow{
+    background-color: var(--lightyellow-color);
+}
+
+.title {
+    font-family: 'Stag Medium';
+}
+
+.subtitle {
+    font-family: 'Stag Light';
+    font-size:18px;
+}
+
+.pointer{
+    cursor:pointer;
+}
+
+/*Font Initialization*/
+/************************************************/
+
+@font-face {
+    font-family: 'Stag Sans';
+    src: url("../fonts/StagSans-Book.eot?#iefix") format("embedded-opentype"), url("../fonts/StagSans-Book.otf") format("opentype"), url("../fonts/StagSans-Book.woff") format("woff"), url("../fonts/StagSans-Book.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal
+}
+
+@font-face {
+    font-family: 'Stag Light';
+    src: url("../fonts/Stag-Light.eot?#iefix") format("embedded-opentype"), url("../fonts/Stag-Light.otf") format("opentype"), url("../fonts/Stag-Light.woff") format("woff"), url("../fonts/Stag-Light.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal
+}
+
+@font-face {
+    font-family: 'Stag Medium';
+    src: url("../fonts/Stag-Medium.eot?#iefix") format("embedded-opentype"), url("../fonts/Stag-Medium.otf") format("opentype"), url("../fonts/Stag-Medium.woff") format("woff"), url("../fonts/Stag-Medium.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal
+}
+
+@font-face {
+    font-family: 'Stag SemiBold';
+    src: url("../fonts/Stag-Semibold.eot?#iefix") format("embedded-opentype"), url("../fonts/Stag-Semibold.otf") format("opentype"), url("../fonts/Stag-Semibold.woff") format("woff"), url("../fonts/Stag-Semibold.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal
+}
+
+@font-face {
+    font-family: 'Helvetica';
+    src: url("../fonts/Helvetica.ttf");
+    font-weight: normal;
+    font-style: normal
+}
+
+@font-face {
+    font-family: 'Verdana';
+    src: url("../fonts/Verdana.ttf");
+    font-weight: normal;
+    font-style: normal
+}
+
+/*Body*/
+body {
+    min-height: 100vh;
+    position: relative;
+    background: linear-gradient(187deg, rgba(0,0,0,0) 5%, rgba(0,0,0,0.90) 100%), url(../img/bg/bg1.jpg) no-repeat center center / cover;
+    background-attachment: fixed;
+/*    overflow-y: hidden;*/
+}
+
+/*Header*/
+.header{
+    position: relative;
+    top: 10px;
+}
+.menuItem {
+    font-size: 0.9em;
+}
+.menuItem:hover {
+    font-weight: bolder;
+    cursor: pointer;
+    font-family: 'stag sans';
+}
+.langDropdown{
+    min-width: 4.5rem !important;
+    min-height: 29px;
+    padding: 3px 13px;
+}
+.langDropdownIcon {
+    font-size: 0.9rem;
+    width: 15px;
+}
+.langDropdown img{
+    height: 15px;
+    width: 30px;
+}
+.langDropdown .menu.transition.visible {
+    min-width: 63px !important;
+}
+.langDropdown .langitem {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    white-space: nowrap !important;    
+}
+.langDropdown .dropdown.icon{
+    top: 0 !important;
+    padding-top: 14px !important;
+}
+.ui.dropdown:not(.button)>.default.text{
+    padding-right: 5px !important;
+}
+.ui.selection.dropdown{
+    padding: 4px 35px 3px 7px !important;
+    min-height: 25px;
+}
+.ui.selection.dropdown .menu>.item{
+    padding: 4px 8px !important;
+}
+.ui.dropdown>.text{
+    font-size: 10.5px;
+    padding-right: 10px;
+    position: relative;
+    left: 4px;
+}
+.ui.search.selection.dropdown>input.search{
+    padding: 3.321429px 2.1em 0.67857143em 1em;
+}
+.langDropdown .menu.transition.visible::-webkit-scrollbar{
+    max-width: 0.3rem;
+}
+
+/*Response*/
+.siriContainer{
+    position: relative;
+    top: 80px;
+/*    width: 35%;*/
+    width: 65%; height: 45vh;
+    background: url(../gif/siri2.gif) no-repeat center center / cover;
+}
+#sirigif {
+    width: 35%;
+    height: 65vh;
+}
+
+#response {
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 80vh;    
 }
+.respContainer {
+    font-size: 2.5rem;
+}
+
+/*Chat*/
+#chat {
+    bottom: 0;
+    background: rgb(24 21 21 / 25%);
+    border-radius: 15px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(9.4px);
+    -webkit-backdrop-filter: blur(9.4px);
+    bottom: 5px;
+    border: 0px;
+}
+.icoBox:hover, .icoActive {
+    background-color: var(--yellow-color);
+    border-color: var(--yellow-color) !important;
+    box-shadow: 3px -1px 21px -2px rgba(186,162,162,0.75);
+    -webkit-box-shadow: 3px -1px 21px -2px rgba(186,162,162,0.75);
+    -o-box-shadow: 3px -1px 21px -2px rgba(186,162,162,0.75);
+    -ms-box-shadow: 3px -1px 21px -2px rgba(186,162,162,0.75);
+    -moz-box-shadow: 3px -1px 21px -2px rgba(186,162,162,0.75);
+}
+.ico{
+    font-size: 32px;
+    margin: 4px -5px;
+}
+.helperText {
+    font-family: 'stag light', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    font-weight: 800;
+    font-style: italic;
+}
+.helperText .badge {
+    font-size: 0.8rem;
+    font-style: normal;
+    cursor: not-allowed;
+}
+.msgText input {
+    border-radius: 18px;
+}
+
+/*Footer*/
+.footerText {
+    font-size: 9px;
+    font-family: 'helvetica';
+    letter-spacing: 0.5px;
+}
+
+/* Media Queries */
+@media screen and (max-width:576px) {
+    .navicon{
+        font-size: 1.7em;
+    }
+    .helperText {
+        line-height: 2.4rem;
+    }
+    .siriContainer {
+        width: 100%;
+        height: 70vh;
+    }
+}
+
+/* Scrollbar customization */
+/************************************************/
+body::-webkit-scrollbar{
+    max-width: 0.5rem;
+}
+/* Track */
+body::-webkit-scrollbar-track{
+    box-shadow: inset 0 0 5px grey;
+    -webkit-box-shadow: inset 0 0 5px grey;    /* Safari, Chrome */
+    -moz-box-shadow: inset 0 0 5px grey;       /* Mozilla */ 
+    -ms-box-shadow: inset 0 0 5px grey;        /* IE */
+    -o-box-shadow: inset 0 0 5px grey;         /* Opera */
+    border-radius: 10px;
+}
+/* Handle */
+body::-webkit-scrollbar-thumb{
+/*    background-color: rgba(255, 255, 255, 1);*/
+    background-image: -webkit-linear-gradient(to bottom, #8a9dc6 50%, #9e8ba5 100%);
+    background-image: -moz-linear-gradient(to bottom, #8a9dc6 50%, #9e8ba5 100%);
+    background-image: -o-linear-gradient(to bottom, #8a9dc6 50%, #9e8ba5 100%);
+    background-image: -ms-linear-gradient(to bottom, #8a9dc6 50%, #9e8ba5 100%);
+    background-image: linear-gradient(to bottom, #8a9dc6 50%, #9e8ba5 100%);
+    border-radius: 10px;
+}
+body::-webkit-scrollbar-button{
+    display: none;
+}
+
+/* Selection Markup */
+/************************************************/
+::selection {
+    color: #fff;
+    background: #0066a1;
+}
+::-moz-selection {
+    color: #fff;
+    background: #0066a1;
+}
+::-ms-selection {
+    color: #fff;
+    background: #0066a1; 
+}
+::-o-selection {
+    color: #fff;
+    background: #0066a1;
+}
+::-webkit-selection {
+    color: #fff;
+    background: #0066a1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

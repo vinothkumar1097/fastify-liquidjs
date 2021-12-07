@@ -2,19 +2,117 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fastify - Liquid</title>
-    <link rel="stylesheet" href="/assets/css/chat.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrint-to-fit=no">    
+    <title>Siri</title>
+        
+    <link rel="icon" type="image/png" href="assets/img/icons/favicon.png">    
+    
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="assets/node_modules/Bootstrap/css/bootstrap.min.css">
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Semantic UI -->
+    <link rel="stylesheet" href="assets/node_modules/SemanticUI/semantic.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/chat.css">
 </head>
 <body>
-    <p>This is Chat page</p>
-    <hr>
-    <div id="container">
+    <!-- Header -->    
+    <div class="container-lg header">
+         <div class="row justify-content-between shadow rounded px-3 py-2">
+             <div class="col-3 p-0 m-0">
+                 <img src="assets/img/icons/logo-white.svg" width="70" alt="Atos" class="img-fluid">
+             </div>
+             <div class="col-6 d-flex justify-content-end align-items-center">
+                 <small class="me-4 menuItem text-white">
+                     <i class="fas fa-home me-1 navicon"></i>
+                     <span class="d-none d-sm-inline-block">Home</span>
+                 </small>
+                 <small class="me-4 menuItem text-white">
+                     <i class="fas fa-sign-out-alt me-1 navicon"></i>
+                     <span class="d-none d-sm-inline-block">Logout</span>
+                 </small>
+                 <div class="ui selection dropdown langDropdown search">
+                  <input type="hidden" name="lang" id="lang">
+                  <i class="dropdown icon"></i>
+                  <div class="default text"><i class="fas fa-globe text-dark langDropdownIcon"></i></div>
+                  <div class="menu">
+                    <div class="item langitem" data-value="ta-IN" data-text="TA">
+                      <img src="assets/flags/ind.svg" alt=""><small>TA</small>
+                    </div>
+                    <div class="item langitem" data-value="en-US" data-text="EN">
+                      <img src="assets/flags/usa.svg" alt=""><small>EN</small>
+                    </div>
+                    <div class="item langitem" data-value="fr-FR" data-text="FR">
+                      <img src="assets/flags/fra.svg" alt=""><small>FR</small>
+                    </div>
+                  </div>
+                </div>
+             </div>
+         </div>   
     </div>
-    <button type="button" id="btn">Submit</button>
-    <a href="/home/to_chat">Redirect to Home</a>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="/assets/js/chat.js"></script>
+    
+    <!-- Response -->
+    <div class="container-lg" id="response">
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-12 text-center siriContainer d-none">
+            </div>
+            <div class="col-12 text-center msgContainer text-white">
+                <span class="respContainer text-wrap">
+                    
+                </span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Chat -->
+    <div class="container-lg fixed-bottom" id="chat">
+        <div class="row justify-content-between align-items-center">
+           <div class="col-sm-3 text-start d-flex justify-content-center justify-content-sm-start align-items-center py-3">
+               <div class="p-0 ms-4 border border-4 rounded-circle icoBox pointer micInput">
+                   <i class="fas fa-3x fa-microphone-alt py-2 px-3 text-white"></i>
+               </div>
+               <div class="p-0 ms-4 border border-4 rounded-circle icoBox pointer kbInput">
+                   <i class="ico far fa-3x fa-keyboard py-2 px-3 text-white"></i>
+               </div>
+           </div>
+           <div class="col-sm-9 text-center text-sm-end chatdesc">
+               <div class="text-white helperText p-0 m-0">
+                   Try Something like
+                   <span class="badge bg-danger py-2">Show Domains</span>
+                   <span class="badge bg-secondary py-2">Show Topics</span>
+                   <span class="badge bg-primary py-2 d-none d-md-inline-block">Take a Tour</span>
+               </div>
+               <div class="text-white msgText text-start d-none">
+                   <input class="form-control" type="text" name="chatmsg" id="chatmsg" placeholder="Enter your message...." maxlength="110" required>
+               </div>
+           </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+<!--
+    <div class="container-fluid fixed-bottom text-start">
+        <small class="text-muted footerText">&copy;Atos IT Solutions and Services</small>
+    </div>
+-->
+    
+    <!-- Jquery -->
+    <script src="assets/node_modules/Jquery/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="assets/node_modules/Bootstrap/js/bootstrap.bundle.js"></script>
+    <!-- Semantic UI -->
+    <script src="assets/node_modules/SemanticUI/semantic.min.js"></script>
+    <!--<script src="https://unpkg.com/adaptivecards/dist/adaptivecards.js"></script>-->
+    
+    <!-- Speech SDK -->
+    <script src="assets/node_modules/Speech/microsoft.cognitiveservices.speech.sdk.bundle-min.js"></script>
+    <!-- Custom JS -->
+    <script src="assets/js/chat.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+//            getMicrophoneAccess();
+        });
+    </script>
 </body>
 </html>

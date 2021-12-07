@@ -1,0 +1,9 @@
+#container {
+    font-size: 2rem;
+    width: 50%;
+    height: 50vh;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

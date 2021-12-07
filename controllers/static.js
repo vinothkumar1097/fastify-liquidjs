@@ -6,10 +6,10 @@ const home = async (req, res) => {
 
 const chat = (req, res) => {
     // https://www.fastify.io/docs/latest/Reply/#redirectcode--dest
-    res.redirect('/tst')
+    // res.redirect('/tst')
     // res.code(200).redirect('/home/tst')
     // res.redirect(200, '/home/tst')
-    // res.view('./views/chat.html')
+    res.view('./views/chat.html')
 }
 
 module.exports = {
