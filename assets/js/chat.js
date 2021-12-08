@@ -13,6 +13,7 @@ const response_container = $('.respContainer');
 // SPEECH Initializations
 const SERVICE_KEY = "737d2a79ba3d4051958be64e6b4d702b";
 const SERVICE_REGION = "eastus";
+const baseURL = 'http://localhost:5000';
 const speechsdk = window.SpeechSDK;
 const SPEECH_TRANSLATION_TARGET_LANG = 'en';
 
@@ -46,9 +47,15 @@ const showhideElem = (showelem, hideelem) => {
 
 // Speech to Text API
 const speech2text = () => {
-    return new Promise(resolve => {
-        // REF : https://github.com/Azure-Samples/AzureSpeechReactSample
-        const speechConfig = speechsdk.SpeechConfig.fromSubscription(SERVICE_KEY, SERVICE_REGION)
+    return new Promise(async (resolve) => {
+        // REF : https://github.com/Azure-Samples/AzureSpeechReactSample        
+        
+        const tokenObj = await getTokenOrRefresh();
+        if (!tokenObj.authToken) {
+            resolve({issuccess: false, msg: 'Unable to access Speech Service.'})
+        }
+        const speechConfig = speechsdk.SpeechConfig.fromAuthorizationToken(tokenObj.authToken, tokenObj.region)
+        // const speechConfig = speechsdk.SpeechConfig.fromSubscription(SERVICE_KEY, SERVICE_REGION)
         speechConfig.speechRecognitionLanguage = lang_input.val()
             
         const audioConfig = speechsdk.AudioConfig.fromDefaultMicrophoneInput();
@@ -56,7 +63,7 @@ const speech2text = () => {
         
         let resp;
         recognizer.recognizeOnceAsync(result => {
-            console.log(JSON.stringify(result, null, 4))
+            // console.log(JSON.stringify(result, null, 4))
             console.log(speechsdk.ResultReason[result.reason]);
             if (result.reason === speechsdk.ResultReason.RecognizedSpeech) {
                 resp = {issuccess: true, msg: result.text}
@@ -73,8 +80,14 @@ const speech2text = () => {
 
 // Speech Translation API
 const speechTranslation = () => {
-    return new Promise(resolve => {
-        const translationConfig = speechsdk.SpeechTranslationConfig.fromSubscription(SERVICE_KEY, SERVICE_REGION)
+    return new Promise(async (resolve) => {
+        
+        const tokenObj = await getTokenOrRefresh();
+        if (!tokenObj.authToken) {
+            resolve({issuccess: false, msg: 'Unable to access Speech Service.'})
+        }
+        const translationConfig = speechsdk.SpeechTranslationConfig.fromAuthorizationToken(tokenObj.authToken, tokenObj.region)
+        // const translationConfig = speechsdk.SpeechTranslationConfig.fromSubscription(SERVICE_KEY, SERVICE_REGION)
         translationConfig.speechRecognitionLanguage = lang_input.val()
         translationConfig.addTargetLanguage(SPEECH_TRANSLATION_TARGET_LANG)
         // console.log('Target languages', translationConfig.targetLanguages)
@@ -101,7 +114,7 @@ const speechTranslation = () => {
 
 // Text to Speech API
 const text2speech = (spokenInput, hideProcessingElem=false) => {
-    return new Promise(resolve => {
+    return new Promise(async (resolve) => {
         if (!spokenInput) {
             throw new Error("Unable to translate Speech.")
         }
@@ -115,7 +128,12 @@ const text2speech = (spokenInput, hideProcessingElem=false) => {
             "ta-IN": "ta-IN-ValluvarNeural",            
             "fr-FR": "fr-FR-HenriNeural",            
         }
-        const speechConfig = speechsdk.SpeechConfig.fromSubscription(SERVICE_KEY, SERVICE_REGION);
+        const tokenObj = await getTokenOrRefresh();
+        if (!tokenObj.authToken) {
+            resolve({issuccess: false, msg: 'Unable to access Speech Service.'})
+        }
+        const speechConfig = speechsdk.SpeechConfig.fromAuthorizationToken(tokenObj.authToken, tokenObj.region)
+        // const speechConfig = speechsdk.SpeechConfig.fromSubscription(SERVICE_KEY, SERVICE_REGION);
         speechConfig.speechSynthesisLanguage = lang_input.val();
         speechConfig.speechSynthesisVoiceName = voices[lang_input.val()];
         const audioConfig = speechsdk.AudioConfig.fromDefaultSpeakerOutput();
@@ -193,13 +211,15 @@ mic_elem.on('click', async (e) => {
     }
 })
 
-keyboard_elem.on('click', (e) => {
+// show keyboard input
+keyboard_elem.on('click', async (e) => {
     e.preventDefault();
     mic_elem.removeClass('icoActive')
     keyboard_elem.addClass('icoActive')
     showhideElem(msg_elem, helper_elem)
 })
 
+// Handle Keyboard input
 msg_input.keyup(function(e){
     if(e.keyCode == 13)
     {

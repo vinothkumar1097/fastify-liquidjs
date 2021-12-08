@@ -33,6 +33,7 @@ fastify.register(POV, {
 // Register config and routes
 fastify.register(require('./routes/items'));
 fastify.register(require('./routes/static'));
+fastify.register(require('./routes/chat'));
 
 // Handle 404 errors (Page not found - https://www.fastify.io/docs/v3.8.x/Server/#setnotfoundhandler)
 fastify.setNotFoundHandler({
@@ -66,7 +67,7 @@ console.log(fastify.printRoutes())
 
 const start_server = async() => {
     try {
-        const PORT = parseInt(process.env.SERVER_PORT);
+        const PORT = parseInt(process.env.SERVER_PORT || 5000);
         await fastify.listen(PORT, () => console.log('SERVER LISTENING AT PORT : '+ PORT));
     } catch (error) {
         fastify.log.error(error);

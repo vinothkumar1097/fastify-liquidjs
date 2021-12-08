@@ -3,3 +3,6 @@ GET http://localhost:5000/items HTTP/1.1
 
 ### HOME
 GET http://localhost:5000/home/testing HTTP/1.1
+
+### GET SPEECH TOKEN
+GET http://localhost:5000/api/get-speech-token HTTP/1.1
