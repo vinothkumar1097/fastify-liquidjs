@@ -1,16 +1,20 @@
 // Element Initialization
 const lang_container = $('.langDropdown');;
 const lang_input = $('#lang');
+const lang_input_text = lang_input.find('.text');
+
 const mic_elem = $('.micInput');
 const keyboard_elem = $('.kbInput');
 const msg_input = $('#chatmsg');
 const helper_elem = $('.helperText');
 const msg_elem = $('.msgText');
-
 const response_container = $('.respContainer');
+
+// SPEECH Initializations
 const SERVICE_KEY = "737d2a79ba3d4051958be64e6b4d702b";
 const SERVICE_REGION = "eastus";
 const speechsdk = window.SpeechSDK;
+const SPEECH_TRANSLATION_TARGET_LANG = 'en';
 
 // Initialize Semantic UI
 lang_container.dropdown({
@@ -40,42 +44,112 @@ const showhideElem = (showelem, hideelem) => {
     $(hideelem).removeClass('d-block').addClass('d-none');
 }
 
-
-const translateSpeech = (targetLang='en') => {
+// Speech to Text API
+const speech2text = () => {
     return new Promise(resolve => {
-        // configure translation
-        const translationConfig = speechsdk.SpeechTranslationConfig.fromSubscription(SERVICE_KEY, SERVICE_REGION)
-        translationConfig.speechRecognitionLanguage = lang_input.val()
-        translationConfig.addTargetLanguage('en')
-//      console.log('Target languages', translationConfig.targetLanguages)
+        // REF : https://github.com/Azure-Samples/AzureSpeechReactSample
+        const speechConfig = speechsdk.SpeechConfig.fromSubscription(SERVICE_KEY, SERVICE_REGION)
+        speechConfig.speechRecognitionLanguage = lang_input.val()
             
         const audioConfig = speechsdk.AudioConfig.fromDefaultMicrophoneInput();
-        const recognizer = new speechsdk.TranslationRecognizer(translationConfig, audioConfig);
-//        const recognizer = new speechsdk.SpeechRecognizer(speechConfig, audioConfig);
+        const recognizer = new speechsdk.SpeechRecognizer(speechConfig, audioConfig);
         
         let resp;
         recognizer.recognizeOnceAsync(result => {
-            console.log(JSON.stringify(result.translations, null, 4))
-            console.log(result.translations['privMap']['privValues'][0])
-//            console.log(speechsdk.ResultReason)
-//            console.log(result.reason)
-            if (result.reason === speechsdk.ResultReason.TranslatedSpeech) {
-                resp = {status: 'success', msg: result.translations['privMap']['privValues'][0]}
+            console.log(JSON.stringify(result, null, 4))
+            console.log(speechsdk.ResultReason[result.reason]);
+            if (result.reason === speechsdk.ResultReason.RecognizedSpeech) {
+                resp = {issuccess: true, msg: result.text}
             } else {
-                resp = {status: 'failed', msg: 'Speech was cancelled or could not be recognized. Ensure your microphone is working properly.'}
+                console.error('translateSpeech :: ',JSON.stringify(result, null, 4));
+                resp = {issuccess: false, msg: 'Speech was cancelled or could not be recognized. Ensure your microphone is working properly.'}
             }
             console.log('spoken input', result.text)
             console.log('translation output',resp['msg'])
             resolve(resp);
-//            response_container.html(displayText).css({'color': "yellow"});
         });
     })
 }
 
+// Speech Translation API
+const speechTranslation = () => {
+    return new Promise(resolve => {
+        const translationConfig = speechsdk.SpeechTranslationConfig.fromSubscription(SERVICE_KEY, SERVICE_REGION)
+        translationConfig.speechRecognitionLanguage = lang_input.val()
+        translationConfig.addTargetLanguage(SPEECH_TRANSLATION_TARGET_LANG)
+        // console.log('Target languages', translationConfig.targetLanguages)
+            
+        const audioConfig = speechsdk.AudioConfig.fromDefaultMicrophoneInput();
+        const recognizer = new speechsdk.TranslationRecognizer(translationConfig, audioConfig);
+        
+        let resp;
+        recognizer.recognizeOnceAsync(result => {
+            // console.log(JSON.stringify(result.translations, null, 4))
+            console.log(speechsdk.ResultReason[result.reason]);
+            if (result.reason === speechsdk.ResultReason.TranslatedSpeech) {
+                resp = {issuccess: true, msg: result.translations['privMap']['privValues'][0]}
+            } else {
+                console.error('translateSpeech :: ',JSON.stringify(result, null, 4));
+                resp = {issuccess: false, msg: 'Speech was cancelled or could not be recognized. Ensure your microphone is working properly.'}
+            }
+            console.log('spoken input', result.text)
+            console.log('translation output',resp['msg'])
+            resolve(resp);
+        });
+    })
+}
 
+// Text to Speech API
+const text2speech = (spokenInput, hideProcessingElem=false) => {
+    return new Promise(resolve => {
+        if (!spokenInput) {
+            throw new Error("Unable to translate Speech.")
+        }
+        /*
+        REFERENCE URLs : 
+        https://github.com/Azure-Samples/cognitive-services-speech-sdk/blob/master/quickstart/javascript/node/text-to-speech/index.js
+        https://docs.microsoft.com/en-us/azure/cognitive-services/speech-service/language-support#speech-to-text
+        */
+        const voices = {
+            "en-US": "en-US-BrandonNeural",
+            "ta-IN": "ta-IN-ValluvarNeural",            
+            "fr-FR": "fr-FR-HenriNeural",            
+        }
+        const speechConfig = speechsdk.SpeechConfig.fromSubscription(SERVICE_KEY, SERVICE_REGION);
+        speechConfig.speechSynthesisLanguage = lang_input.val();
+        speechConfig.speechSynthesisVoiceName = voices[lang_input.val()];
+        const audioConfig = speechsdk.AudioConfig.fromDefaultSpeakerOutput();
+        const synthesizer = new speechsdk.SpeechSynthesizer(speechConfig, audioConfig);
+        synthesizer.speakTextAsync(
+            spokenInput, 
+            result => {
+                console.log(speechsdk.ResultReason[result.reason]);
+                if (hideProcessingElem) {
+                    response_container.removeClass('listening processing');
+                }
+                synthesizer.close();
+                if (result.reason === speechsdk.ResultReason.SynthesizingAudioCompleted) {
+                    resolve({issuccess: true, msg: result.audioData})
+                } else {
+                    console.error('translateSpeech :: ',JSON.stringify(result, null, 4));
+                    resolve({issuccess: false, msg: `speakText :: unable to speak input :: ${speechsdk.ResultReason[result.reason]}`})
+                }
+            },
+            error => {
+                console.error('speakText :: ',error);
+                synthesizer.close();
+                resolve({issuccess: false, msg: error})
+        });
+    })
+}
+
+// Handle Speech recognition on mic press
 mic_elem.on('click', async (e) => {
     e.preventDefault();
-        
+    
+    mic_elem.css({'cursor': 'not-allowed', "opacity": 0.4});
+    response_container.html('');    
+    
     try {
         // Checking microphone
         if (!await getMicrophoneAccess()) {
@@ -87,44 +161,35 @@ mic_elem.on('click', async (e) => {
         mic_elem.addClass('icoActive')
         showhideElem(helper_elem, msg_elem)
         
-        // speech detection
+        // speech language check
         if (!lang_input.val()) {
             throw new Error('Please select language');
         }
         
-        // Speech translation
-        var detectedText = await translateSpeech()
-        console.log(detectedText);
+        // Speech to Text
+        response_container.removeClass('processing').addClass('listening');
+        var detected_text = await speech2text();
+        response_container.removeClass('listening').addClass('processing');
+        console.log(detected_text);
+        if (!detected_text['issuccess']) {
+            throw new Error(detected_text['msg']);
+        }
         
-        // Speech response (https://github.com/Azure-Samples/cognitive-services-speech-sdk/blob/master/quickstart/javascript/node/text-to-speech/index.js)
-        var voices = {"en": "en-IN-PrabhatNeural"}
-        const speechConfig = speechsdk.SpeechConfig.fromSubscription(SERVICE_KEY, SERVICE_REGION);
-        speechConfig.speechSynthesisLanguage = "en";
-        speechConfig.speechSynthesisVoiceName = voices['en'];
-        var audioConfig = speechsdk.AudioConfig.fromDefaultSpeakerOutput();
-        var synthesizer = new speechsdk.SpeechSynthesizer(speechConfig, audioConfig);
-        await synthesizer.speakTextAsync(
-            detectedText['msg'],
-            result => {
-                if (result) {
-                    console.log(result)
-                    synthesizer.close();
-                    response_container.html(detectedText['msg']).css({'color': "yellow"});
-                    return result.audioData;
-                }
-            },
-            error => {
-                console.log(error);
-                synthesizer.close();
-            });
-//        synthesizer.speakTextAsync(displayText)
-//            const speak = synthesizer.speakTextAsync(displayText).get()
-//            if (speak.reason != speech_sdk.ResultReason.SynthesizingAudioCompleted){
-//                console.log(speak.reason)
-//            }
+        // Text to Speech
+        var speak_text = await text2speech(detected_text['msg'], true);
+        console.log(speak_text);
+        if (!speak_text['issuccess']) {
+            throw new Error(speak_text['msg']);
+        }
+        response_container.html(detected_text['msg']).css({'color': "yellow"});
     }
     catch (err) {
+        console.error(err);
+        response_container.removeClass('listening processing');
         response_container.html(err.message).css({'color': "red"});
+    }
+    finally {
+        mic_elem.css({'cursor': 'pointer', "opacity": 1});
     }
 })
 

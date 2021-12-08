@@ -212,7 +212,147 @@ body {
     min-height: 80vh;    
 }
 .respContainer {
-    font-size: 2.5rem;
+    font-size: 2em;
+    line-height: 6vh;
+}
+
+.respContainer.listening {
+    background: url(../gif/siri-listening.png) no-repeat center center / cover;
+    width: 200px;
+    height: 200px;
+    padding: 0; margin: 0;
+    border-radius: 50%;
+    animation: ripple .9s linear infinite;
+}
+@-webkit-keyframes ripple {
+    0% {
+        box-shadow: 0 0 0 0 #fff4, 0 0 0 0 #fff4;
+    }
+
+    80% {
+        box-shadow: 0 0 0 40px #fff0, 0 0 0 80px #fff0;
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 #fff0, 0 0 0 0 #fff0;
+    }
+}
+@-moz-keyframes ripple {
+    0% {
+        box-shadow: 0 0 0 0 #fff4, 0 0 0 0 #fff4;
+    }
+
+    80% {
+        box-shadow: 0 0 0 40px #fff0, 0 0 0 80px #fff0;
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 #fff0, 0 0 0 0 #fff0;
+    }
+}
+@-o-keyframes ripple {
+    0% {
+        box-shadow: 0 0 0 0 #fff4, 0 0 0 0 #fff4;
+    }
+
+    80% {
+        box-shadow: 0 0 0 40px #fff0, 0 0 0 80px #fff0;
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 #fff0, 0 0 0 0 #fff0;
+    }
+}
+@-ms-keyframes ripple {
+    0% {
+        box-shadow: 0 0 0 0 #fff4, 0 0 0 0 #fff4;
+    }
+
+    80% {
+        box-shadow: 0 0 0 40px #fff0, 0 0 0 80px #fff0;
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 #fff0, 0 0 0 0 #fff0;
+    }
+}
+@keyframes ripple {
+    0% {
+        box-shadow: 0 0 0 0 #fff4, 0 0 0 0 #fff4;
+    }
+
+    80% {
+        box-shadow: 0 0 0 40px #fff0, 0 0 0 80px #fff0;
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 #fff0, 0 0 0 0 #fff0;
+    }
+}
+
+.respContainer.processing {
+    background: url(../gif/siri-processing.png) no-repeat center center / cover;
+    width: 200px;
+    height: 200px;
+    padding: 0; margin: 0;
+    border-radius: 50%;
+}
+
+.respContainer.processing::before {
+    content: '';
+    position: relative;
+    left: -16px;
+    top: -17px;
+    display: inline-block;
+    width: 235px;
+    height: 235px;
+    border-top: 8px dotted #d1cfb5;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom: 8px dotted #d1cfb5;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    animation: spinner 2s infinite linear;
+}
+@-webkit-keyframes spinner {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+@-moz-keyframes spinner {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+@-ms-keyframes spinner {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+@-o-keyframes spinner {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+@keyframes spinner {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 /*Chat*/
