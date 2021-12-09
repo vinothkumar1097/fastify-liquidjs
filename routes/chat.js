@@ -614,11 +614,188 @@ const chatOpts = {
                 "width": "Full"
             }
         }
+        var card3 = 
+        {
+            "type": "message",
+            "attachmentLayout": "carousel",
+            "attachments": [
+                {
+                    "contentType": "application/vnd.microsoft.card.adaptive",
+                    "content": {
+                        "type": "AdaptiveCard",
+                        "body": [
+                            {
+                                "type": "TextBlock",
+                                "text": "Ask a question",
+                                "height": "stretch",
+                                "fontType": "Default",
+                                "size": "Medium",
+                                "weight": "Bolder",
+                                "color": "Accent",
+                                "spacing": "Padding"
+                            },
+                            {
+                                "type": "Image",
+                                "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA1AAA",
+                                "size": "Large",
+                                "horizontalAlignment": "Center",
+                                "width": "420px",
+                                "height": "200px"
+                            },
+                            {
+                                "type": "TextBlock",
+                                "text": "You can ask me anything related to Finance domains. Try add some keywords to describe what you are looking for.", 
+                                "size": "Default",
+                                "wrap": true,
+                                "maxLines": 5
+                            }
+                        ],
+                        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                        "version": "1.2"
+                    }
+                }
+            ],
+            "inputHint": "acceptingInput"
+        }
+        var card4 = 
+        {
+            "type": "AdaptiveCard",
+            "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+            "version": "1.2",
+            "body": [
+                {
+                    "type": "TextBlock",
+                    "text": null,
+                    "wrap": true,
+                    "weight": "Bolder"
+                },
+                {
+                    "type": "Container",
+                    "items": [
+                        {
+                            "type": "Container",
+                            "items": [
+                                {
+                                    "type": "Container",
+                                    "items": [
+                                        {
+                                            "type": "TextBlock",
+                                            "text": "[Procurement](https://sp2013.myatos.net/organization/gf/pu/Pages/HomePage.aspx)",
+                                            "height": "stretch",
+                                            "fontType": "Default",
+                                            "size": "Default",
+                                            "weight": "Bolder",
+                                            "color": "Accent",
+                                            "maxLines": 0,
+                                            "spacing": "Padding"
+                                        }
+                                    ],
+                                    "minHeight": "20px",
+                                    "height": "stretch"
+                                },
+                                {
+                                    "type": "TextBlock",
+                                    "text": "செயலி 1 ஐ செயல்படுத்துகிறது:\n\nபடி 1 - உங்கள் சாதனத்தில் உள்ள பயன்பாட்டு ஸ்டோரிலிருந்து அரிபா மொபைல் வாங்குபவர் பயன்பாட்டைப் பதிவிறக்கவும்\n\nபடி 2 - உங்கள் சாதனத்தில் திரையில் காட்டப்பட்டுள்ள படிநிலைகளை பின்பற்றவும்\n\nபடி 3 - மேலே அடையாளம் காணப்பட்டபடி செயல்படுத்தும் குறியீட்டை ஒதுக்கவும்\n\nபடி 4 - பயன்பாடு செயலில் உள்ளது மற்றும் நீங்கள் செல்ல நல்லது.",
+                                    "wrap": true,
+                                    "separator": true
+                                },
+                                {
+                                    "type": "TextBlock",
+                                    "text": "Attachments",
+                                    "weight": "Bolder",
+                                    "color": "Accent",
+                                    "spacing": "Small",
+                                    "size": "Small",
+                                    "separator": false
+                                },
+                                {
+                                    "type": "FactSet",
+                                    "facts": [
+                                        {
+                                            "title": "-",
+                                            "value": "[83.jpg](https://storagerpacoedevsiri.blob.core.windows.net/assets/procurement/83.jpg)"
+                                        }
+                                    ],
+                                    "spacing": "Small"
+                                },
+                                {
+                                    "type": "ColumnSet",
+                                    "columns": [
+                                        {
+                                            "type": "Column",
+                                            "width": "auto",
+                                            "items": [
+                                                {
+                                                    "type": "ActionSet",
+                                                    "actions": [
+                                                        {
+                                                            "type": "Action.Submit",
+                                                            "title": "வடிகட்டும் அமைவு",
+                                                            "data": {
+                                                                "msteams": {
+                                                                    "type": "messageBack",
+                                                                    "displayText": "வடிகட்டும் அமைவு",
+                                                                    "text": "Filter Applied",
+                                                                    "value": "{\"isSuccess\": \"yes\"}"
+                                                                },
+                                                                "userContext": "Filter Applied",
+                                                                "intentName": "Procurement",
+                                                                "intentCode": "procure"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "Column",
+                                            "width": "auto",
+                                            "items": [
+                                                {
+                                                    "type": "ActionSet",
+                                                    "actions": [
+                                                        {
+                                                            "type": "Action.Submit",
+                                                            "title": "கருத்து பகிர்",
+                                                            "data": {
+                                                                "msteams": {
+                                                                    "type": "messageBack",
+                                                                    "displayText": "கருத்து பகிர்",
+                                                                    "text": "Feedback",
+                                                                    "value": "{\"isSuccess\": \"yes\"}"
+                                                                },
+                                                                "userContext": "Feedback",
+                                                                "intentName": "Procurement",
+                                                                "intentCode": "procure",
+                                                                "question": "How to activate Ariba Mobile",
+                                                                "qnaAnswer": "Activating the App 1 :\n\nStep 1 - Download Ariba Mobile Buyer app from the app store on your device\n\nStep 2 - Follow the steps as displayed on screen on your device\n\nStep 3 - Assign activation code as identified above\n\nStep 4 - App is active and you are good to go.",
+                                                                "qnaId": 20
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "separator": true
+                                }
+                            ],
+                            "separator": true,
+                            "minHeight": "0px",
+                            "style": "default"
+                        }
+                    ]
+                }
+            ],
+            "msteams": {
+                "width": "Full"
+            }
+        }
         res.header('Content-Type', 'application/json');
         res.header('Access-Control-Allow-Origin', req.headers.origin);
         console.log(req.body)
         // console.log(JSON.stringify(req.body['userContext'], null, 4));
-        res.send(JSON.stringify(card2))
+        res.send(JSON.stringify(card4))
     }
 }
 
