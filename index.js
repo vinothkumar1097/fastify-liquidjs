@@ -67,7 +67,7 @@ console.log(fastify.printRoutes())
 
 const start_server = async() => {
     try {
-        const PORT = parseInt(process.env.SERVER_PORT || 5000);
+        const PORT = parseInt(process.env.port || process.env.PORT || 5000);
         await fastify.listen(PORT, () => console.log('SERVER LISTENING AT PORT : '+ PORT));
     } catch (error) {
         fastify.log.error(error);
