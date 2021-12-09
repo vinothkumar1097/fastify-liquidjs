@@ -16,6 +16,7 @@ const SERVICE_REGION = "eastus";
 const baseURL = 'http://localhost:5000';
 const speechsdk = window.SpeechSDK;
 const SPEECH_TRANSLATION_TARGET_LANG = 'en';
+const GET_TOKEN_FROM_BACKEND = true;
 
 // Initialize Semantic UI
 lang_container.dropdown({
@@ -50,12 +51,23 @@ const speech2text = () => {
     return new Promise(async (resolve) => {
         // REF : https://github.com/Azure-Samples/AzureSpeechReactSample        
         
-        const tokenObj = await getTokenOrRefresh();
-        if (!tokenObj.authToken) {
-            resolve({issuccess: false, msg: 'Unable to access Speech Service.'})
+        var tokenObj, speechConfig;
+        if (GET_TOKEN_FROM_BACKEND) {
+            tokenObj = await getTokenOrRefresh();
+            if (!tokenObj.authToken) {
+                resolve({issuccess: false, msg: 'Unable to access Speech Service.'})
+            } 
+            speechConfig = speechsdk.SpeechConfig.fromAuthorizationToken(tokenObj.authToken, tokenObj.region)
+        } else {
+            speechConfig = speechsdk.SpeechConfig.fromSubscription(SERVICE_KEY, SERVICE_REGION)
         }
-        const speechConfig = speechsdk.SpeechConfig.fromAuthorizationToken(tokenObj.authToken, tokenObj.region)
-        // const speechConfig = speechsdk.SpeechConfig.fromSubscription(SERVICE_KEY, SERVICE_REGION)
+//        const tokenObj = await getTokenOrRefresh();
+//        if (!tokenObj.authToken) {
+//            resolve({issuccess: false, msg: 'Unable to access Speech Service.'})
+//        }
+//        const speechConfig = (GET_TOKEN_FROM_BACKEND) 
+//                                ? speechsdk.SpeechConfig.fromAuthorizationToken(tokenObj.authToken, tokenObj.region)
+//                                : speechsdk.SpeechConfig.fromSubscription(SERVICE_KEY, SERVICE_REGION)
         speechConfig.speechRecognitionLanguage = lang_input.val()
             
         const audioConfig = speechsdk.AudioConfig.fromDefaultMicrophoneInput();
@@ -82,12 +94,23 @@ const speech2text = () => {
 const speechTranslation = () => {
     return new Promise(async (resolve) => {
         
-        const tokenObj = await getTokenOrRefresh();
-        if (!tokenObj.authToken) {
-            resolve({issuccess: false, msg: 'Unable to access Speech Service.'})
+        var tokenObj, translationConfig;
+        if (GET_TOKEN_FROM_BACKEND) {
+            tokenObj = await getTokenOrRefresh();
+            if (!tokenObj.authToken) {
+                resolve({issuccess: false, msg: 'Unable to access Speech Service.'})
+            } 
+            translationConfig = speechsdk.SpeechTranslationConfig.fromAuthorizationToken(tokenObj.authToken, tokenObj.region)
+        } else {
+            translationConfig = speechsdk.SpeechTranslationConfig.fromSubscription(SERVICE_KEY, SERVICE_REGION)
         }
-        const translationConfig = speechsdk.SpeechTranslationConfig.fromAuthorizationToken(tokenObj.authToken, tokenObj.region)
-        // const translationConfig = speechsdk.SpeechTranslationConfig.fromSubscription(SERVICE_KEY, SERVICE_REGION)
+//        const tokenObj = await getTokenOrRefresh();
+//        if (!tokenObj.authToken) {
+//            resolve({issuccess: false, msg: 'Unable to access Speech Service.'})
+//        }
+//        const translationConfig = (GET_TOKEN_FROM_BACKEND) 
+//                                ? speechsdk.SpeechTranslationConfig.fromAuthorizationToken(tokenObj.authToken, tokenObj.region)
+//                                : speechsdk.SpeechTranslationConfig.fromSubscription(SERVICE_KEY, SERVICE_REGION)
         translationConfig.speechRecognitionLanguage = lang_input.val()
         translationConfig.addTargetLanguage(SPEECH_TRANSLATION_TARGET_LANG)
         // console.log('Target languages', translationConfig.targetLanguages)
@@ -128,12 +151,23 @@ const text2speech = (spokenInput, hideProcessingElem=false) => {
             "ta-IN": "ta-IN-ValluvarNeural",            
             "fr-FR": "fr-FR-HenriNeural",            
         }
-        const tokenObj = await getTokenOrRefresh();
-        if (!tokenObj.authToken) {
-            resolve({issuccess: false, msg: 'Unable to access Speech Service.'})
+        var tokenObj, speechConfig;
+        if (GET_TOKEN_FROM_BACKEND) {
+            tokenObj = await getTokenOrRefresh();
+            if (!tokenObj.authToken) {
+                resolve({issuccess: false, msg: 'Unable to access Speech Service.'})
+            } 
+            speechConfig = speechsdk.SpeechConfig.fromAuthorizationToken(tokenObj.authToken, tokenObj.region)
+        } else {
+            speechConfig = speechsdk.SpeechConfig.fromSubscription(SERVICE_KEY, SERVICE_REGION)
         }
-        const speechConfig = speechsdk.SpeechConfig.fromAuthorizationToken(tokenObj.authToken, tokenObj.region)
-        // const speechConfig = speechsdk.SpeechConfig.fromSubscription(SERVICE_KEY, SERVICE_REGION);
+//        const tokenObj = await getTokenOrRefresh();
+//        if (!tokenObj.authToken) {
+//            resolve({issuccess: false, msg: 'Unable to access Speech Service.'})
+//        }
+//        const speechConfig = (GET_TOKEN_FROM_BACKEND)
+//                                ? speechsdk.SpeechConfig.fromAuthorizationToken(tokenObj.authToken, tokenObj.region)
+//                                : speechsdk.SpeechConfig.fromSubscription(SERVICE_KEY, SERVICE_REGION);
         speechConfig.speechSynthesisLanguage = lang_input.val();
         speechConfig.speechSynthesisVoiceName = voices[lang_input.val()];
         const audioConfig = speechsdk.AudioConfig.fromDefaultSpeakerOutput();

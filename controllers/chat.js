@@ -15,6 +15,10 @@ const getSpeechToken = async (req, res) => {
         };
         
         try {
+            // console.log('url', req.headers.origin)
+            if (process.env.ENVIRONMENT == 'Local') {
+                res.header('Access-Control-Allow-Origin', req.headers.origin);
+            }
             res.header('Content-Type', 'application/json');
             const tokenResponse = await axios.post(`https://${speechRegion}.api.cognitive.microsoft.com/sts/v1.0/issueToken`, null, headers);
             // console.log(tokenResponse.data)

@@ -3,7 +3,7 @@
 
 // getToken
 const getTokenOrRefresh = () => {    
-    return new Promise( async(resolve) => {
+    return new Promise(async (resolve) => {
         try {
             const speechToken = getCookie('speech-token');
             if (!speechToken || speechToken === undefined) {
@@ -31,7 +31,7 @@ const getTokenOrRefresh = () => {
 // Set Cookie
 function setCookie(cookieName, cookieVal, cookieMaxAge) {
     var d = new Date();
-    d.setTime(d.getTime() + (cookieMaxAge * 1000));     // for 1 minute expiry
+    d.setTime(d.getTime() + (cookieMaxAge * 60 * 1000));     // for 1 minute expiry
     var expires = "expires="+ d.toUTCString();
     document.cookie = cookieName + "=" + cookieVal + ";" + expires + ";path=/";
 }
