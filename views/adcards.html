@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrint-to-fit=no">    
+    <title>Adaptive Cards</title>
+        
+    <link rel="icon" type="image/png" href="assets/img/icons/favicon.png">    
+    
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="assets/node_modules/Bootstrap/css/bootstrap.min.css">
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <style>
+        .ac-pushButton{
+            border-radius: 10px;
+            background: transparent;
+            border: 1px solid #0066a1;
+            font-size: 20px;
+        }
+        .ac-pushButton:hover{
+            background: #0066a1;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-12 adBlock">
+                
+            </div>
+        </div>
+    </div>
+    
+    <!-- Jquery -->
+    <script src="assets/node_modules/Jquery/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="assets/node_modules/Bootstrap/js/bootstrap.bundle.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/markdown-it/dist/markdown-it.js"></script>
+    <script src="https://unpkg.com/adaptivecards/dist/adaptivecards.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // REF: https://docs.microsoft.com/en-us/adaptive-cards/sdk/rendering-cards/javascript/render-a-card
+            
+            const adcontainer = $('.adBlock');
+            const AdaptiveCards = window.AdaptiveCards;
+            console.log(AdaptiveCards)
+            
+            var card = {
+              "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+              "type": "AdaptiveCard",
+              "version": "1.0",
+              "body": [
+                {
+                  "type": "TextBlock",
+                  "text": "Present a form and submit it back to the originator"
+                },
+                {
+                  "type": "Input.Text",
+                  "id": "firstName",
+                  "placeholder": "What is your first name?"
+                },
+                {
+                  "type": "Input.Text",
+                  "id": "lastName",
+                  "placeholder": "What is your last name?"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "Action.Submit",
+                  "title": "Action.Submit",
+                  "data": {
+                    "x": 13
+                  }
+                }
+              ]
+            };
+            
+            var apicard = await fetch(`http://localhost:5000/api/getData`, {method: 'POST'});
+            card = await apicard.json()
+            console.log(card, typeof card)
+            
+            // Create an AdaptiveCard instance
+            var adaptiveCard = new AdaptiveCards.AdaptiveCard();
+            adaptiveCard.hostConfig = new AdaptiveCards.HostConfig({
+                fontFamily: "Segoe UI, Helvetica Neue, sans-serif"
+                // More host config options
+            });
+            adaptiveCard.onProcessMarkdown = function (text, result) {
+                 result.outputHtml = markdownit().render(text);
+                 result.didProcess = true;
+             };
+            adaptiveCard.onExecuteAction = async (action) => { 
+                console.log(action.data)
+//                alert(JSON.stringify(action.data, null, 4)); 
+                var resp = await fetch(`http://localhost:5000/api/getData`, {method: 'POST', body: JSON.stringify(action.data)})
+                console.log(await resp.json())
+            }
+            adaptiveCard.parse(card);
+            var renderedCard = adaptiveCard.render();
+            adcontainer.html(renderedCard);
+        });
+    </script>
+</body>
+</html>
