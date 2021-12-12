@@ -11,6 +11,9 @@
     --lightorange-color: rgba(250, 97, 25,0.2);
     --yellow-color: rgb(158, 149, 0);
     --lightyellow-color: rgba(158, 149, 0,0.2);
+    
+    --resp-success-color: rgb(215 206 67);
+    --resp-danger-color: rgb(255 70 70);
 }
 
 * {
@@ -135,6 +138,30 @@ body {
     position: relative;
     top: 10px;
 }
+.webicon{
+    position: relative;
+    animation: glide 2s ease-in-out alternate infinite;
+}
+@-webkit-keyframes glide {
+    from { transform: scale(.95)}
+    to { transform: scale(1.1) }
+}
+@-o-keyframes glide {
+    from { transform: scale(.95)}
+    to { transform: scale(1.1) }
+}
+@-ms-keyframes glide {
+    from { transform: scale(.95)}
+    to { transform: scale(1.1) }
+}
+@-moz-keyframes glide {
+    from { transform: scale(.95)}
+    to { transform: scale(1.1) }
+}
+@keyframes glide {
+    from { transform: scale(.95)}
+    to { transform: scale(1.1) }
+}
 .menuItem {
     font-size: 0.9em;
 }
@@ -193,27 +220,32 @@ body {
 }
 
 /*Response*/
-.siriContainer{
-    position: relative;
-    top: 80px;
-/*    width: 35%;*/
-    width: 65%; height: 45vh;
-    background: url(../gif/siri2.gif) no-repeat center center / cover;
-}
-#sirigif {
-    width: 35%;
-    height: 65vh;
-}
-
 #response {
+    position: relative;
+    top: 5vh;
+    height: 75vh;
+    padding: 0;
+    border-radius: 10px;   
+    background: rgb(24 21 21 / 25%);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(9.4px);
+    -webkit-backdrop-filter: blur(9.4px);
+}
+.responseBlock{    
+    position: relative;
+    top: 3vh;
+    height: 68vh;
+    overflow-y: scroll;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 80vh;    
 }
 .respContainer {
-    font-size: 2em;
+    font-size: 1.7em;
     line-height: 6vh;
+/*    margin-top: -11.5vh;    */
+    font-family: 'stag sans', sans-serif;
+    color: var(--resp-text-color)
 }
 
 .respContainer.listening {
@@ -355,16 +387,58 @@ body {
     }
 }
 
+/*Response based css*/
+.tourimg {
+    width: 100%;
+    height: 33vh;
+    background-size: cover !important;
+}
+.tourtitle{
+    font-size: 1.1rem;
+    letter-spacing: 0.8px;
+}
+.tourdesc{
+    font-size: .85rem;
+    letter-spacing: 0.4px;
+}
+.carousel {
+    position: inherit !Important;
+}
+.carousel-inner .card {
+    width: 23rem;
+}
+.carousel-indicators button {
+    border-radius: 50% !important;
+    width: 1% !important;
+    height: 1vh !important;
+    background-color: #fff !important;
+}
+.carousel-control-next, .carousel-control-prev{
+    width: 55%;
+}
+#carouselExampleIndicators .carousel-item .tourimg{
+    animation: zoomIn 2s ease-in-out;
+}
+@keyframes zoomIn {
+    from {
+        transform: scale(.8);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+
 /*Chat*/
 #chat {
-    bottom: 0;
     background: rgb(24 21 21 / 25%);
-    border-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(9.4px);
     -webkit-backdrop-filter: blur(9.4px);
     bottom: 5px;
-    border: 0px;
+    border-top: 2px dotted #e0e1e159;
 }
 .icoBox:hover, .icoActive {
     background-color: var(--yellow-color);
@@ -414,15 +488,35 @@ body {
         width: 100%;
         height: 70vh;
     }
+    .responseBlock{
+        height: 65vh;
+    }
+    .respContainer {
+        font-size: 1.6em;
+        line-height: 3.5vh;
+    }
+    .carousel-indicators button {
+        width: 3.5% !important;
+        height: 1.5vh !important;
+    }
+    .carousel-control-next, .carousel-control-prev{
+        width: 9%;
+    }
+}
+
+@media (min-width:577px) and (max-width:768px) {
+    .carousel-control-next, .carousel-control-prev{
+        width: 30%;
+    }
 }
 
 /* Scrollbar customization */
 /************************************************/
-body::-webkit-scrollbar{
+body::-webkit-scrollbar, .responseBlock::-webkit-scrollbar{
     max-width: 0.5rem;
 }
 /* Track */
-body::-webkit-scrollbar-track{
+body::-webkit-scrollbar-track, .responseBlock::-webkit-scrollbar-track{
     box-shadow: inset 0 0 5px grey;
     -webkit-box-shadow: inset 0 0 5px grey;    /* Safari, Chrome */
     -moz-box-shadow: inset 0 0 5px grey;       /* Mozilla */ 
@@ -431,7 +525,7 @@ body::-webkit-scrollbar-track{
     border-radius: 10px;
 }
 /* Handle */
-body::-webkit-scrollbar-thumb{
+body::-webkit-scrollbar-thumb, .responseBlock::-webkit-scrollbar-thumb{
 /*    background-color: rgba(255, 255, 255, 1);*/
     background-image: -webkit-linear-gradient(to bottom, #8a9dc6 50%, #9e8ba5 100%);
     background-image: -moz-linear-gradient(to bottom, #8a9dc6 50%, #9e8ba5 100%);
@@ -440,7 +534,7 @@ body::-webkit-scrollbar-thumb{
     background-image: linear-gradient(to bottom, #8a9dc6 50%, #9e8ba5 100%);
     border-radius: 10px;
 }
-body::-webkit-scrollbar-button{
+body::-webkit-scrollbar-button, .responseBlock::-webkit-scrollbar-button{
     display: none;
 }
 

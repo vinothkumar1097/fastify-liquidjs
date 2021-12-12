@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- Semantic UI -->
     <link rel="stylesheet" href="assets/node_modules/SemanticUI/semantic.min.css">
+    
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/chat.css">
 </head>
@@ -22,6 +23,7 @@
          <div class="row justify-content-between shadow rounded px-3 py-2">
              <div class="col-3 p-0 m-0">
                  <img src="assets/img/icons/logo-white.svg" width="70" alt="Atos" class="img-fluid">
+                 <img src="assets/img/icons/web-icon.png" width="22" class="ms-2 img-fluid webicon d-none d-sm-inline-block">
              </div>
              <div class="col-6 d-flex justify-content-end align-items-center">
                  <small class="me-4 menuItem text-white">
@@ -54,11 +56,77 @@
     
     <!-- Response -->
     <div class="container-lg" id="response">
-        <div class="row d-flex justify-content-center align-items-center">
-            <div class="col-12 text-center siriContainer d-none">
-            </div>
-            <div class="col-12 text-center msgContainer text-white">
-                <div class="respContainer text-wrap"></div>
+        <div class="responseBlock py-3 mx-2 overflow-auto">
+            <div class="row">
+                <div class="col-12 respContainer">
+                    <div id="carouselExampleIndicators" class="carousel carousel-fade" data-bs-ride="carousel">
+                      <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                      </div>
+                      <div class="carousel-inner">
+                        <div class="carousel-item active" data-bs-interval="2000">
+                          <div class="card">
+                              <div class="card-img-top tourimg" style="background: url(assets/img/image/Askaquestion.png) center center no-repeat;"></div>
+                              <div class="card-body py-2 px-3">
+                                <span class="h5 tourtitle">Ask Question</span>
+                                <hr class="my-1">
+                                <p class="pt-1 card-text h6 text-wrap text-start tourdesc">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima, neque dolorum repellat. Adipisci soluta, provident incidunt rem quas repudiandae minima ratione quisquam vitae possimus deserunt, omnis obcaecati! Officia aliquam, sunt.
+                                </p>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="carousel-item">
+                          <div class="card" data-bs-interval="2000">
+                              <div class="card-img-top tourimg" style="background: url(assets/img/image/filter.png) center center no-repeat;"></div>
+                              <div class="card-body py-2 px-3">
+                                <span class="h5 tourtitle">Filter Functions</span>
+                                <hr class="my-1">
+                                <p class="pt-1 card-text h6 text-wrap text-start tourdesc">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima, neque dolorum repellat. Adipisci soluta, provident incidunt rem quas repudiandae minima ratione quisquam vitae possimus deserunt, omnis obcaecati! Officia aliquam, sunt.
+                                </p>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="carousel-item">
+                          <div class="card" data-bs-interval="2000">
+                              <div class="card-img-top tourimg" style="background: url(assets/img/image/Sharefeedback.png) center center no-repeat;"></div>
+                              <div class="card-body py-2 px-3">
+                                <span class="h5 tourtitle">Share Feedback</span>
+                                <hr class="my-1">
+                                <p class="pt-1 card-text h6 text-wrap text-start tourdesc">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima, neque dolorum repellat. Adipisci soluta, provident incidunt rem quas repudiandae minima ratione quisquam vitae possimus deserunt, omnis obcaecati! Officia aliquam, sunt.
+                                </p>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="carousel-item">
+                          <div class="card" data-bs-interval="2000">
+                              <div class="card-img-top tourimg" style="background: url(assets/img/image/Translate.png) center center no-repeat;"></div>
+                              <div class="card-body py-2 px-3">
+                                <span class="h5 tourtitle">Multilingual Chat</span>
+                                <hr class="my-1">
+                                <p class="pt-1 card-text h6 text-wrap text-start tourdesc">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima, neque dolorum repellat. Adipisci soluta, provident incidunt rem quas repudiandae minima ratione quisquam vitae possimus deserunt, omnis obcaecati! Officia aliquam, sunt.
+                                </p>
+                              </div>
+                          </div>
+                        </div>
+                        
+                      </div>
+                      <button class="carousel-control-prev d-none" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                      </button>
+                      <button class="carousel-control-next d-none" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                      </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -76,7 +144,7 @@
            </div>
            <div class="col-sm-9 text-center text-sm-end chatdesc">
                <div class="text-white helperText p-0 m-0">
-                   Try Something like
+                   Try Saying&nbsp;&nbsp;
                    <span class="badge bg-danger py-2">Show Domains</span>
                    <span class="badge bg-secondary py-2">Show Topics</span>
                    <span class="badge bg-primary py-2 d-none d-md-inline-block">Take a Tour</span>
@@ -99,8 +167,8 @@
     <script src="assets/node_modules/Bootstrap/js/bootstrap.bundle.js"></script>
     <!-- Semantic UI -->
     <script src="assets/node_modules/SemanticUI/semantic.min.js"></script>
-    <!--<script src="https://unpkg.com/adaptivecards/dist/adaptivecards.js"></script>-->
-    
+    <!--<script src="https://unpkg.com/adaptivecards/dist/adaptivecards.js"></script>-->    
+        
     <!-- Speech SDK -->
     <script src="assets/node_modules/Speech/microsoft.cognitiveservices.speech.sdk.bundle-min.js"></script>
     <!-- Custom JS -->
@@ -108,7 +176,6 @@
     <script src="assets/js/chat.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-//            getMicrophoneAccess();
         });
     </script>
 </body>
