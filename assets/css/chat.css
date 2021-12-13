@@ -223,6 +223,8 @@ body {
 #response {
     position: relative;
     top: 5vh;
+    display: flex;
+    justify-content: center;
     height: 75vh;
     padding: 0;
     border-radius: 10px;   
@@ -235,15 +237,13 @@ body {
     position: relative;
     top: 3vh;
     height: 68vh;
-    overflow-y: scroll;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 90%;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 .respContainer {
     font-size: 1.7em;
     line-height: 6vh;
-/*    margin-top: -11.5vh;    */
     font-family: 'stag sans', sans-serif;
     color: var(--resp-text-color)
 }
@@ -387,7 +387,7 @@ body {
     }
 }
 
-/*Response based css*/
+/*Response based css - take a tour*/
 .tourimg {
     width: 100%;
     height: 33vh;
@@ -395,10 +395,13 @@ body {
 }
 .tourtitle{
     font-size: 1.1rem;
-    letter-spacing: 0.8px;
+    font-family: 'stag light', sans-serif;
+    letter-spacing: 1.1px;
 }
 .tourdesc{
     font-size: .85rem;
+    font-family: 'stag sans', sans-serif;
+    height: 12vh;
     letter-spacing: 0.4px;
 }
 .carousel {
@@ -406,6 +409,9 @@ body {
 }
 .carousel-inner .card {
     width: 23rem;
+}
+.carousel-indicators{
+    bottom: 4vh !Important;
 }
 .carousel-indicators button {
     border-radius: 50% !important;
@@ -416,7 +422,7 @@ body {
 .carousel-control-next, .carousel-control-prev{
     width: 55%;
 }
-#carouselExampleIndicators .carousel-item .tourimg{
+#tourCarousel .carousel-item .tourimg{
     animation: zoomIn 2s ease-in-out;
 }
 @keyframes zoomIn {
@@ -428,6 +434,59 @@ body {
     }
 }
 
+/*Response based css - show topics*/
+.desc{
+    color: var(--resp-success-color);
+}
+#showtopics .descbtn .btn, #showdomains .btn, #startover .btn{
+/*    background: linear-gradient(180deg, #EFF54D, #00AC61);*/
+    background-image: linear-gradient(-14deg, #EFF54D 0%, #3CA55C  51%, #3CA55C  100%);
+    margin: 5px;
+    font-family: 'helvetica';
+    letter-spacing: 0.5px;
+    border-radius: 14px;
+    color: white;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(9.2px);
+    -webkit-backdrop-filter: blur(9.2px);
+    transition: 0.5s;
+    background-size: 200% auto;
+}
+#showtopics .descbtn .btn:hover, #showdomains .btn:hover, #startover .btn:hover {
+    background-position: right center;
+    color: #fff;
+    text-decoration: none;
+}
+
+/*Response based css - show domains*/
+#showdomains .domainDropdown{
+    width: 55% !important;
+}
+.descdropdown .dropdown.icon{
+    padding: 6px !important;
+}
+.descdropdown .search{
+    font-size: 1.3rem;
+    letter-spacing: 0.6px;
+    padding: 3px 10px !important;
+}
+.descdropdown .text{
+    font-size: 1rem !important;
+    font-family: 'stag medium', sans-serif;
+    letter-spacing: 1px;
+    padding: 3px 2px !important;
+}
+.descdropdown .ui.selection.dropdown .menu>.item{
+    padding: 8px !Important;
+}
+.descdropdown .menu.transition.visible::-webkit-scrollbar{
+    max-width: 0.4rem;
+}
+
+/*Response based css - start over*/
+#startover .domainDropdown{
+    width: 30% !important;
+}
 
 /*Chat*/
 #chat {
@@ -501,6 +560,9 @@ body {
     }
     .carousel-control-next, .carousel-control-prev{
         width: 9%;
+    }
+    #showdomains .domainDropdown, #startover .domainDropdown{
+        width: 70% !important;
     }
 }
 

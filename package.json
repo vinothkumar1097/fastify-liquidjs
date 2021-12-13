@@ -12,6 +12,8 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.24.0",
+    "botbuilder": "^4.15.0",
+    "botbuilder-ai-orchestrator": "^4.15.0",
     "fastify": "^3.24.1",
     "fastify-static": "^4.5.0",
     "liquidjs": "^9.28.5",

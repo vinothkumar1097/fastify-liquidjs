@@ -1,7 +1,12 @@
 // Element Initialization
-const lang_container = $('.langDropdown');;
+const ui_dropdown_container = $('.ui.dropdown');;
 const lang_input = $('#lang');
 const lang_input_text = lang_input.find('.text');
+const intent_input = $('#showdomains .descdropdown .search+.text');
+const startover_input = $('#onlyAnswer .descdropdown .search+.text');
+
+const showdomains_submit = $('#showdomains .btn');
+const startover_submit = $('#startover .btn');
 
 const mic_elem = $('.micInput');
 const keyboard_elem = $('.kbInput');
@@ -19,7 +24,7 @@ const SPEECH_TRANSLATION_TARGET_LANG = 'en';
 const GET_TOKEN_FROM_BACKEND = true;
 
 // Initialize Semantic UI
-lang_container.dropdown({
+ui_dropdown_container.dropdown({
     clearable: false
 });
 
@@ -233,12 +238,12 @@ mic_elem.on('click', async (e) => {
         if (!speak_text['issuccess']) {
             throw new Error(speak_text['msg']);
         }
-        response_container.html(detected_text['msg']).css({'color': "yellow"});
+        response_container.html(detected_text['msg']).css({'color': "var(--resp-success-color)"});
     }
     catch (err) {
         console.error(err);
         response_container.removeClass('listening processing');
-        response_container.html(err.message).css({'color': "red"});
+        response_container.html(err.message).css({'color': "var(--resp-danger-color)"});
     }
     finally {
         mic_elem.css({'cursor': 'pointer', "opacity": 1});

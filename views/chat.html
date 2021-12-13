@@ -56,15 +56,78 @@
     
     <!-- Response -->
     <div class="container-lg" id="response">
-        <div class="responseBlock py-3 mx-2 overflow-auto">
+        <div class="responseBlock py-3 mx-2">
             <div class="row">
                 <div class="col-12 respContainer">
-                    <div id="carouselExampleIndicators" class="carousel carousel-fade" data-bs-ride="carousel">
+                    
+                    <!-- Show topics -->
+                    <div id="showtopics" class="d-none mt-5 d-grid justify-content-start">
+                        <div class="row">
+                            <div class="col-12 align-items-center">
+                                <span class="h4 desc">You could choose one from the below topics.</span>
+                                <div class="descbtn mt-4">
+                                    <button type="button" class="btn">General Information</button>
+                                    <button type="button" class="btn">Ariba App</button>
+                                    <button type="button" class="btn">Approvals</button>
+                                    <button type="button" class="btn">Errors</button>
+                                    <button type="button" class="btn">Good Receipt</button>
+                                    <button type="button" class="btn">Invoices</button>
+                                    <button type="button" class="btn">Language</button>
+                                    <button type="button" class="btn">Purchase Requisition</button>
+                                    <button type="button" class="btn">Substitution</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Show domains -->
+                    <div id="showdomains" class="d-none text-center mt-5 d-grid justify-content-start">
+                        <div class="row">
+                            <div class="col-12 align-items-center">
+                                <span class="h4 desc">Please select an Internal Function from the below dropdown list.</span>
+                                <div class="descdropdown mt-4 text-start d-flex">
+                                    <select class="ui search dropdown domainDropdown">
+                                      <option value="" selected>Select Internal Function</option>
+                                      <option value="procure">Procurement</option>
+                                      <option value="esg">CSR ESG</option>
+                                      <option value="hr">HR</option>
+                                      <option value="recruitment">Recruitment</option>
+                                    </select>
+                                    <button type="button" class="btn py-0 my-0">submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Just Answer (start over, smalltalk, none) -->
+                    <div id="startover" class="d-none text-center mt-2 d-grid justify-content-start">
+                        <div class="row">
+                            <div class="col-12 align-items-center text-start">
+                                <span class="h4 desc" style="white-space: pre-line">
+                                    <img src="assets/gif/waving_hand.gif" alt="" class="p-0" width="35">Welcome Vinoth,
+                                    I am Atos Siri, one stop chatbot solution for queries related to Atos Internal Functions. For better user experience, please include some keywords or domain names in your questions.
+                                </span>
+                                <div class="descdropdown mt-4 text-start">
+                                    <select class="ui search dropdown domainDropdown">
+                                      <option value="" selected>Select Internal Function</option>
+                                      <option value="procure">Procurement</option>
+                                      <option value="esg">CSR ESG</option>
+                                      <option value="hr">HR</option>
+                                      <option value="recruitment">Recruitment</option>
+                                    </select>
+                                    <button type="button" class="btn py-1 my-0">submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Take a tour -->
+                    <div id="tourCarousel" class="carousel carousel-fade d-grid justify-content-center d-none" data-bs-ride="carousel">
                       <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                        <button type="button" data-bs-target="#tourCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#tourCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#tourCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        <button type="button" data-bs-target="#tourCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
                       </div>
                       <div class="carousel-inner">
                         <div class="carousel-item active" data-bs-interval="2000">
@@ -83,7 +146,7 @@
                           <div class="card" data-bs-interval="2000">
                               <div class="card-img-top tourimg" style="background: url(assets/img/image/filter.png) center center no-repeat;"></div>
                               <div class="card-body py-2 px-3">
-                                <span class="h5 tourtitle">Filter Functions</span>
+                                <span class="h5 tourtitle">Filter Internal Functions</span>
                                 <hr class="my-1">
                                 <p class="pt-1 card-text h6 text-wrap text-start tourdesc">
                                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima, neque dolorum repellat. Adipisci soluta, provident incidunt rem quas repudiandae minima ratione quisquam vitae possimus deserunt, omnis obcaecati! Officia aliquam, sunt.
@@ -117,11 +180,11 @@
                         </div>
                         
                       </div>
-                      <button class="carousel-control-prev d-none" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                      <button class="carousel-control-prev d-none" type="button" data-bs-target="#tourCarousel" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
                       </button>
-                      <button class="carousel-control-next d-none" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                      <button class="carousel-control-next d-none" type="button" data-bs-target="#tourCarousel" data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
                       </button>
