@@ -1,6 +1,14 @@
 const path = require('path');
 require('dotenv').config({path: path.join(__dirname, '.env')});
 
+const { BotFrameworkAdapter } = require('botbuilder');
+const adapter = new BotFrameworkAdapter({
+  appId: process.env.MicrosoftAppId,
+  appPassword: process.env.MicrosoftAppPassword
+});
+// const { AtosSiri } = require('./providers/bot');
+// const myBot = new AtosSiri();
+
 const POV = require('point-of-view');
 const { Liquid } = require('liquidjs');
 
@@ -31,7 +39,7 @@ fastify.register(POV, {
 })
 
 // Register config and routes
-fastify.register(require('./routes/items'));
+fastify.register(require('./routes/items'), { adapter, name: 'vinoth' });
 fastify.register(require('./routes/static'));
 fastify.register(require('./routes/chat'));
 

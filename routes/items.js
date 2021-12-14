@@ -3,12 +3,14 @@ const { TurnContext, BotFrameworkAdapter } = require('botbuilder');
 const { OrchestratorRecognizer } = require('botbuilder-ai-orchestrator');
 const { DialogContext, DialogSet } = require('botbuilder-dialogs');
 const { LuisRecognizer } = require('botbuilder-ai');
+const { AtosSiri } = require('../providers/bot');
 
 const adapter = new BotFrameworkAdapter({
     appId: "c7028e99-1d9b-4ad7-a873-92e178d98aef",
     appPassword: "bz-7Q~mFY8HjF9lRbnKanm~_R7WNGigSKEmut"
 });
-adapter.onTurnError = async (context, error) => {
+
+adapter.onTurnError = async (error) => {
     console.log('error occured', error)
 }
 const dispatcher = new OrchestratorRecognizer().configure({
@@ -73,17 +75,52 @@ const postMsgOpts = {
         var luisRecognizerResult = await luisRecognizer.recognize(context);
         console.log(`LUIS Recognizer result : ${JSON.stringify(luisRecognizerResult, null, 4)}`)
         console.log(luisRecognizerResult['luisResult']['topScoringIntent']['intent'])
+        try {
+            throw new Error('testing testing')
+        } catch (error) {
+            console.log('Errorssssss', error)
+        }
         return res.send(JSON.stringify(recognizerResult))
         // console.log(req.url)
         // res.send(JSON.stringify({name: 'vinoth'}))
     }
 }
 
+const postMsgOpts1 = {
+    handler: async (req, res) => {
+        console.log('Body', req.body);
+        // console.log('Name', req.name);
+        // console.log('Adapter', req.adapter);
+        // console.log('BFAdapter', req.bfadpater);
+        // console.log(req.myBot.getname(req))
+        var resp = await req.myBot.recognizerResult(req)
+        res.send(JSON.stringify(resp, null, 4))
+    }
+}
+
 function itemRoutes(fastify, options, next) {
+    // var { adapter } = options;
+    // var { name } = options;
+    // console.log('options', name);
+
+    // initialize bot
+    // fastify.decorateRequest('adapter', null)
+    // fastify.decorateRequest('bfadpater', { getter: () => options['adapter'] })
+
+    const myBot = new AtosSiri(options['adapter']);
+    fastify.decorateRequest('myBot', { getter: () => myBot })
+    
+
+    // fastify.addHook('preHandler', async (req, res) => {
+    //     console.log('prehandler triggered');
+    //     req.adapter = options['adapter'];
+    //     req.name = options['name'];
+    //     req.myBot = myBot;        
+    // })
 
     fastify.get('/items', getItemsOpts)
     fastify.post('/msg', postMsgOpts)
-
+    fastify.post('/msg1', postMsgOpts1)
     next();
 }
 
