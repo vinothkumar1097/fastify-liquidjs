@@ -2,6 +2,7 @@ const { getItems } = require('../controllers/items')
 const { TurnContext, BotFrameworkAdapter } = require('botbuilder');
 const { OrchestratorRecognizer } = require('botbuilder-ai-orchestrator');
 const { DialogContext, DialogSet } = require('botbuilder-dialogs');
+const { LuisRecognizer } = require('botbuilder-ai');
 
 const adapter = new BotFrameworkAdapter({
     appId: "c7028e99-1d9b-4ad7-a873-92e178d98aef",
@@ -44,11 +45,7 @@ const postMsgOpts = {
         const dc = new DialogContext(new DialogSet(), context, { dialogStack: [] });        
         context.activity['text'] = req.body['query']
         context.activity['serviceUrl'] = 'https://smba.trafficmanager.net/emea/'
-        context.activity['conversation'] = {
-            // conversationType: 'personal',
-            // tenantId: '0b953050-1512-4563-a097-6e7f58b55eb1',
-            id: 'a:109i1P80jdftcS9x'
-            }
+        context.activity['conversation'] = { id: 'a:109i1P80jdftcS9x' }
         // context.activity = {
         //     text: 'what is nessie',
         //     serviceUrl: 'https://smba.trafficmanager.net/emea/',
@@ -59,8 +56,24 @@ const postMsgOpts = {
         //       }
         //   }
         var recognizerResult = await dispatcher.recognize(dc, context.activity);
-        console.log(JSON.stringify(recognizerResult, null, 4))
-        await res.send(JSON.stringify(recognizerResult))
+        // console.log(JSON.stringify(recognizerResult, null, 4))
+
+        const luisConfig = { 
+                applicationId: "958318be-2359-4c44-9931-42625342f80e", 
+                endpointKey: "2cd16b26b9b94dfd9caa2756b9f5f514", 
+                endpoint: `https://westeurope.api.cognitive.microsoft.com` 
+            };
+        const recognizerOptions = {
+                // apiVersion: 'v3',
+                includeAllIntents: true,
+                includeInstanceData: true,
+                slot: "production"
+            };
+        const luisRecognizer = new LuisRecognizer(luisConfig, recognizerOptions, true);
+        var luisRecognizerResult = await luisRecognizer.recognize(context);
+        console.log(`LUIS Recognizer result : ${JSON.stringify(luisRecognizerResult, null, 4)}`)
+        console.log(luisRecognizerResult['luisResult']['topScoringIntent']['intent'])
+        return res.send(JSON.stringify(recognizerResult))
         // console.log(req.url)
         // res.send(JSON.stringify({name: 'vinoth'}))
     }
