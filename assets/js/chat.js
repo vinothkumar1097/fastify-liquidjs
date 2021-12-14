@@ -7,6 +7,17 @@ const startover_input = $('#onlyAnswer .descdropdown .search+.text');
 
 const showdomains_submit = $('#showdomains .btn');
 const startover_submit = $('#startover .btn');
+const smalltalk_submit = $('#smalltalk .domainbtn');
+const qnaSuggestions = $('#qnaSuggestions');
+
+const qnaAttachments = $('.qnaAttachments');
+const qna_filter = $('.qnaFilter');
+const qna_rmfilter = $('.qnaRmFilter');
+const qna_sharefeedback = $('.qnaShareFeedback');
+const qna_sharefeedback2 = $('.qnaShareFeedback2');
+
+const feedback_rating = $('#rating');
+const feedback_msg = $('#msgfeedback');
 
 const mic_elem = $('.micInput');
 const keyboard_elem = $('.kbInput');
@@ -27,6 +38,13 @@ const GET_TOKEN_FROM_BACKEND = true;
 ui_dropdown_container.dropdown({
     clearable: false
 });
+
+// Pagination
+qnaSuggestions.paginate({
+    scope: $('button'),
+    perPage: 5,
+});
+
 
 // Get Microphone permissions from user
 const getMicrophoneAccess = async () => {

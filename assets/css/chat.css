@@ -79,6 +79,12 @@
     cursor:pointer;
 }
 
+.successtext {
+    color: var(--resp-success-color);
+}
+.dangertext {
+    color: var(--resp-danger-color);
+}
 /*Font Initialization*/
 /************************************************/
 
@@ -438,7 +444,7 @@ body {
 .desc{
     color: var(--resp-success-color);
 }
-#showtopics .descbtn .btn, #showdomains .btn, #startover .btn{
+.descbtn .btn, #showdomains .btn, #startover .btn, .domainbtn{
 /*    background: linear-gradient(180deg, #EFF54D, #00AC61);*/
     background-image: linear-gradient(-14deg, #EFF54D 0%, #3CA55C  51%, #3CA55C  100%);
     margin: 5px;
@@ -452,7 +458,7 @@ body {
     transition: 0.5s;
     background-size: 200% auto;
 }
-#showtopics .descbtn .btn:hover, #showdomains .btn:hover, #startover .btn:hover {
+.descbtn .btn:hover, #showdomains .btn:hover, #startover .btn:hover, .domainbtn:hover {
     background-position: right center;
     color: #fff;
     text-decoration: none;
@@ -486,6 +492,66 @@ body {
 /*Response based css - start over*/
 #startover .domainDropdown{
     width: 30% !important;
+}
+
+/*Response based css - default answer*/
+#defaultAnswer .successtext:hover{
+    color: var(--resp-success-color);
+    text-decoration: underline;
+}
+#defaultAnswer hr {
+    height: 1.2px;
+    background-color: #fff8f880;
+    opacity: 1;
+}
+.qnaTitle{
+    font-size: .8em;
+    letter-spacing: .8px;
+}
+.qnaAnswer{
+    font-size: .65em;
+    line-height: 1.4em;    
+}
+#qnaSuggestions .btn{
+    display: block;
+    margin-bottom: 8px;
+    padding: 3px 8px;
+    margin-left: 0px;
+    font-size: 13px;
+    font-family: 'stag light', sans-serif;
+    letter-spacing: 0.5px;
+    text-align: left;
+}
+.paginate-pagination ul{
+    margin: 10px 0;
+}
+.paginate-pagination ul a.page{
+    line-height: 25px;
+    border-radius: 50%;
+    font-size: 14px;
+    margin-right: 5px;
+    height: 25px;
+    width: 27px;
+    font-family: 'Stag medium', sans-serif;
+}
+.paginate-pagination ul a.page.active{
+    opacity: 1 !important;
+    background: var(--blue-color);
+    color: #fff !important;
+}
+.paginate-pagination ul a.page.deactive{
+    cursor: not-allowed !important;
+}
+.qnaAttachments .qnaAnswer{
+    color: var(--resp-success-color);
+}
+.qnaAttachments li, .qnaAttachments a{
+    color: rgb(195 194 177);
+}
+.qnainfo{
+    font-size: .6em;
+    letter-spacing: 0.5px;
+    color: var(--resp-success-color);
 }
 
 /*Chat*/
@@ -535,6 +601,108 @@ body {
     letter-spacing: 0.5px;
 }
 
+/*Feedback*/
+#sharefeedback .modal-title{
+    font-size: 1.2rem;
+    font-family: 'stag sans';
+    letter-spacing: 0.5px;
+}
+#sharefeedback textarea{
+    resize: none;
+    text-align: left;
+    font-size: 1em;
+    font-family: 'stag sans', sans-serif;
+}
+#sharefeedback button{
+    background-color: #0066a1;
+    color: #fff;
+    font-size: .9em;
+    border: 1px solid #0066a1 !important;
+    font-family: 'stag sans', sans-serif;
+    cursor: pointer;
+}
+#sharefeedback button:hover, #sharefeedback button:active{
+    background-color: #fff;
+    color: #0066a1;
+    border: 1px solid #0066a1 !important;
+}
+.modalDismiss:hover, .modalDismiss:active{
+    background-color: #fff !important;
+    color: #fff !important;
+    border-radius: 50%;
+    font-size: .7em !important;
+}
+.statusLoader, .statusAlertMessage{
+    font-size: .9em;
+    font-family: 'stag semibold', sans-serif;
+    letter-spacing: 0.05em;
+}
+.alertIcon{
+    font-size: 1.2em;
+    font-weight: bolder;
+}
+.rating{
+    font-size: 1.1em;
+    font-family: 'stag sans', sans-serif;
+}
+
+
+.ui.selection.ratingDropdown.dropdown{
+    min-height: 32px;
+    width: 100% !important;
+    padding: 3px 13px;
+}
+.ui.ratingDropdown.dropdown .menu>.item>img {
+    max-height: 3em;
+    width: 38px !important;
+}
+.ui.ratingDropdown .item.ratingitem small {
+    font-size: 14.5px !important;
+    font-family: 'stag sans', sans-serif;
+}
+.ui.selection.ratingDropdown.dropdown>.dropdown.icon{
+    top: 3px !important;
+}
+
+.ratingDropdown .menu.transition.visible {
+    min-width: 63px !important;
+}
+
+.ratingDropdown .ratingitem {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    white-space: nowrap !important; 
+    padding: 16px 11px !important;
+    font-size: .8em !important;
+}
+.ratingDropdown .dropdown.icon{
+    top: 7px !important;
+    padding-top: 14px !important;
+}
+.ui.selection.ratingDropdown.dropdown .menu>.item{
+    padding: 9px 6px !important;
+}
+.ratingDropdown.search div.default.text{
+    font-size: 15px !important;
+    padding-right: 10px;
+    position: relative;
+    left: 4px;
+}
+.ui.search.ratingDropdown.dropdown .menu {
+    max-height: 9.014286rem
+}
+.ui.dropdown.ratingDropdown>.text,
+.ui.search.selection.ratingDropdown.dropdown>input.search{
+    font-size: 14.5px !important;
+    padding-top: 4px;
+    font-family: 'stag sans', sans-serif;
+}
+.ui.selection.ratingDropdown.dropdown .menu>.message{
+    font-size: 14.5px !important;
+    padding: .2rem 0.8rem;
+}
+
 /* Media Queries */
 @media screen and (max-width:576px) {
     .navicon{
@@ -564,6 +732,12 @@ body {
     #showdomains .domainDropdown, #startover .domainDropdown{
         width: 70% !important;
     }
+    .paginate-pagination ul a.page{
+        font-size: 13px;
+        height: 18px;
+        width: 20px;
+        margin-right: 3px;
+    }
 }
 
 @media (min-width:577px) and (max-width:768px) {
@@ -574,11 +748,11 @@ body {
 
 /* Scrollbar customization */
 /************************************************/
-body::-webkit-scrollbar, .responseBlock::-webkit-scrollbar{
+body::-webkit-scrollbar, #respScroller::-webkit-scrollbar{
     max-width: 0.5rem;
 }
 /* Track */
-body::-webkit-scrollbar-track, .responseBlock::-webkit-scrollbar-track{
+body::-webkit-scrollbar-track, #respScroller::-webkit-scrollbar-track{
     box-shadow: inset 0 0 5px grey;
     -webkit-box-shadow: inset 0 0 5px grey;    /* Safari, Chrome */
     -moz-box-shadow: inset 0 0 5px grey;       /* Mozilla */ 
@@ -587,7 +761,7 @@ body::-webkit-scrollbar-track, .responseBlock::-webkit-scrollbar-track{
     border-radius: 10px;
 }
 /* Handle */
-body::-webkit-scrollbar-thumb, .responseBlock::-webkit-scrollbar-thumb{
+body::-webkit-scrollbar-thumb, #respScroller::-webkit-scrollbar-thumb{
 /*    background-color: rgba(255, 255, 255, 1);*/
     background-image: -webkit-linear-gradient(to bottom, #8a9dc6 50%, #9e8ba5 100%);
     background-image: -moz-linear-gradient(to bottom, #8a9dc6 50%, #9e8ba5 100%);
@@ -596,7 +770,7 @@ body::-webkit-scrollbar-thumb, .responseBlock::-webkit-scrollbar-thumb{
     background-image: linear-gradient(to bottom, #8a9dc6 50%, #9e8ba5 100%);
     border-radius: 10px;
 }
-body::-webkit-scrollbar-button, .responseBlock::-webkit-scrollbar-button{
+body::-webkit-scrollbar-button, #respScroller::-webkit-scrollbar-button{
     display: none;
 }
 
