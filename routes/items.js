@@ -39,20 +39,28 @@ const getItemsOpts = {
 
 const postMsgOpts = {
     handler: async (req, res) => {
+        console.log(req.body)
         let context = new TurnContext(adapter, req);
-        const dc = new DialogContext(new DialogSet(), context, { dialogStack: [] });
-        context.activity = {
-            text: 'what is nessie',
-            serviceUrl: 'https://smba.trafficmanager.net/emea/',
-            conversation: {
-                conversationType: 'personal',
-                tenantId: '0b953050-1512-4563-a097-6e7f58b55eb1',
-                id: 'a:109i1P80jdftcS9xKS7attil16Fg7JuEQdX0TWqo7BctsODQGNB6ZYa5fFZEUq1PMWQKCCZsdlSA6t2f6PnJiTxZY2iVl1C-tlzlNqgkYfgQSgSMN9hiHgv55niIMXodV'
-              }
-          }
+        const dc = new DialogContext(new DialogSet(), context, { dialogStack: [] });        
+        context.activity['text'] = req.body['query']
+        context.activity['serviceUrl'] = 'https://smba.trafficmanager.net/emea/'
+        context.activity['conversation'] = {
+            // conversationType: 'personal',
+            // tenantId: '0b953050-1512-4563-a097-6e7f58b55eb1',
+            id: 'a:109i1P80jdftcS9x'
+            }
+        // context.activity = {
+        //     text: 'what is nessie',
+        //     serviceUrl: 'https://smba.trafficmanager.net/emea/',
+        //     conversation: {
+        //         conversationType: 'personal',
+        //         tenantId: '0b953050-1512-4563-a097-6e7f58b55eb1',
+        //         id: 'a:109i1P80jdftcS9xKS7attil16Fg7JuEQdX0TWqo7BctsODQGNB6ZYa5fFZEUq1PMWQKCCZsdlSA6t2f6PnJiTxZY2iVl1C-tlzlNqgkYfgQSgSMN9hiHgv55niIMXodV'
+        //       }
+        //   }
         var recognizerResult = await dispatcher.recognize(dc, context.activity);
-        console.log('rr1', recognizerResult)
-        await res.send(JSON.stringify({name: 'vinoth'}))
+        console.log(JSON.stringify(recognizerResult, null, 4))
+        await res.send(JSON.stringify(recognizerResult))
         // console.log(req.url)
         // res.send(JSON.stringify({name: 'vinoth'}))
     }
